@@ -631,7 +631,7 @@ const NSInteger numberOfComponents = 2;
 	
 	NSDateFormatter *formatter = [NSDateFormatter new];
 	[formatter setDateFormat:@"MMMM:yyyy"];
-	[formatter setLocale:[formatter setLocale:self.dateLocale];];
+	[formatter setLocale:self.dateLocale];
 	NSDate *date = [formatter dateFromString:[NSString stringWithFormat:@"%@:%@", month, year]];
 	return date;
 }
@@ -865,7 +865,7 @@ const NSInteger numberOfComponents = 2;
     self.minYear = DEFAULT_MIN_YEAR;
     self.maxYear = DEFAULT_MAX_YEAR;
 	
-    self.dateLocale = [NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    self.dateLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     
 	self.months = [self nameOfMonths];
 	self.years = [self nameOfYears];
