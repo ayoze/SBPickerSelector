@@ -67,6 +67,7 @@ typedef NS_ENUM(NSInteger, SBPickerSelectorDateType) {
 @property (nonatomic, strong) NSDate * _Nullable defaultDate;
 @property (nonatomic, strong) NSString * _Nullable doneButtonTitle;
 @property (nonatomic, strong) NSString * _Nullable cancelButtonTitle;
+@property(nonatomic, strong) NSLocale * _Nullable dateLocale;
 
 	//for month and year selection (default, min:2014, max: 2030)
 @property (nonatomic, assign) int minYear;
