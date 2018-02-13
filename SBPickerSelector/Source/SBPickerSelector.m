@@ -24,6 +24,7 @@
 @property (nonatomic, assign) NSInteger minYear;
 @property (nonatomic, assign) NSInteger maxYear;
 @property (nonatomic, strong) NSIndexPath *dateIndexPath;
+@property (nonatomic, strong) NSLocale * _Nullable dateLocale;
 
 -(void)setupMinYear:(NSInteger)minYear maxYear:(NSInteger)maxYear;
 -(void)selectDate;
@@ -330,7 +331,7 @@
 	
 	self.dateOnlyMonthYearPickerView = [SBDatePickerViewMonthYear new];
 //	[self.dateOnlyMonthYearPickerView selectToday]; 
-	
+    self.dateOnlyMonthYearPickerView.dateLocale = self.dateLocale;
 	[self.datePickerView removeFromSuperview];
 	[self.pickerView removeFromSuperview];
 	[self.view addSubview:self.dateOnlyMonthYearPickerView];
@@ -778,7 +779,18 @@ const NSInteger numberOfComponents = 2;
 
 -(NSArray *)nameOfMonths
 {
-	return @[@"January", @"February", @"March", @"April", @"May", @"June", @"July", @"August", @"September", @"October", @"November", @"December"];
+    NSDateFormatter  *dateFormatter   = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:self.dateLocale];
+    
+   
+    NSMutableArray *retval = [NSMutableArray array];
+    
+    for(int months = 0; months < 12; months++) {
+        NSString *monthName = [[[dateFormatter monthSymbols]objectAtIndex: months] capitalizedString];
+        [retval addObject:monthName];
+    }
+    
+    return retval;
 }
 
 -(NSArray *)nameOfYears
@@ -859,6 +871,11 @@ const NSInteger numberOfComponents = 2;
 	return [formatter stringFromDate:date];
 }
 
+-(void)setDateLocale:(NSLocale *)dateLocale
+{
+    _dateLocale = dateLocale;
+    self.months = [self nameOfMonths];
+}
 
 -(void)loadDefaultsParameters
 {
